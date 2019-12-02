@@ -1,7 +1,28 @@
-GIT "bharanidharan1707"
------------------------
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Javascript WorkAround</title>
+<script type="text/javascript">
+let globalVar = "This is a global variable";
+function RandomCode()
+{
 
-This is LearnGIT repository. 
+//Variable declaration
+ //var a=5,b=3,c=2,d=4,e=1;
+ //console.log(a);
+ //console.log(A); 
 
-Created By : bharanidharan1707
-Mode: Public
+//Let Variable
+let localVar = "This is a local variable"; 
+  
+console.log(globalVar); 
+console.log(localVar); 
+
+}
+RandomCode();
+</script>
+</head>
+</html>
+
+
