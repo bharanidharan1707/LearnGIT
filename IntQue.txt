@@ -1,0 +1,35 @@
+ASP.NET, C#
+
+========
+
+1. What is ASP.Net?
+2. What is meant by Managed and Unmanaged code?
+3. What is an Assembly? What are the different types of Assemblies?
+4. What is a Garbage Collector?
+5. What is the Role of IIS ?
+6. what is boxing and unboxing?
+7. What is PostBack in ASP.NET?
+8. Describe of C# Static Class.
+9. Describe State Management:
+10. Describe Abstract Class.
+11. Why we need an interface?
+12. Explain sealed class in C#?
+13. How the exception handling is done in C#?
+14. List out some of the exceptions in C#?
+15. Write down some loops available in C#?
+16. What are the Access Modifiers in C# ?
+17. What is difference between response redirect and server transfer in asp net with example?
+18. What are the advantages of ASP.NET?
+20. What are Authentication and Authorization?
+
+
+MVC
+
+============================
+
+1. Mention what are main benefits of using MVC?
+2. Explain the role of components Presentation, Abstraction and Control in MVC?
+3. Explain the role of "ActionFilters" in MVC?
+4. Explain what is routing?
+5. How can maintain session in MVC?
+6. What is partial view in MVC?
