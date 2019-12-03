@@ -3,26 +3,26 @@
 <head>
 <meta charset="utf-8">
 <title>Javascript WorkAround</title>
+</head>
+<body>
+<p id="prg"></p>
 <script type="text/javascript">
 let globalVar = "This is a global variable";
 function RandomCode()
 {
+/*Variable declaration*/
 
-//Variable declaration
- //var a=5,b=3,c=2,d=4,e=1;
- //console.log(a);
- //console.log(A); 
-
-//Let Variable
-let localVar = "This is a local variable"; 
-  
-console.log(globalVar); 
-console.log(localVar); 
-
+let bar = "Bar";
+document.getElementById("prg").textContent += bar + "\n";
+{
+var foo = "Foo";
+let baz = "Bazz";
+document.getElementById("prg").textContent += baz + "\n";
+}
+document.getElementById("prg").textContent += foo + "\n"; 
+document.getElementById("prg").textContent += baz + "\n"; 
 }
 RandomCode();
 </script>
-</head>
+</body>
 </html>
-
-
