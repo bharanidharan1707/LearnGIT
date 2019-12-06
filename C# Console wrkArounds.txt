@@ -1,0 +1,165 @@
+/* Diagonal Difference */
+
+  static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine().Trim());
+
+            List<List<int>> arr = new List<List<int>>();
+
+            for (int i = 0; i < n; i++)
+            {
+                arr.Add(Console.ReadLine().TrimEnd().Split(' ').ToList().Select(arrTemp => Convert.ToInt32(arrTemp)).ToList());
+            }
+            Console.WriteLine(diagonalDifference(arr));
+            Console.ReadKey();
+ 
+        }
+
+        public static int diagonalDifference(List<List<int>> arr)
+        {
+            int diag1 = 0, diag2 = 0;
+            int c = arr.Count, res=0;
+            for (int i = 0; i <= c - 1; i++)
+            {
+                diag1 += arr[i][i];
+            }
+            for (int j = c - 1; j >= 0;j--)
+            {
+                diag2 += arr[j][(c-1) - j];
+            }
+            if(diag2 - diag1 < 0 )
+                res = (diag2 - diag1) * -1;
+            else
+                res = diag2 - diag1;
+            return res;
+        }
+/* End Diagonal Difference */
+
+/* Ratios of +ve,-ve ad zero value in an array */
+
+ static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] arr = Array.ConvertAll(Console.ReadLine().Split(' '), arrTemp => Convert.ToInt32(arrTemp));
+            plusMinus(arr);
+            Console.ReadKey();
+        }
+
+        static void plusMinus(int[] arr)
+        {
+            int pos = 0, neg = 0, zer = 0;
+            foreach(var i in arr)
+            {
+                if (i == 0)
+                    zer++;
+                else if (i > 0)
+                    pos++;
+                else
+                    neg++;
+            }
+            double pores = pos / (double)arr.Length, negres = neg / (double)arr.Length, zerres = zer / (double)arr.Length;
+            Console.WriteLine(pores);
+            Console.WriteLine(negres);
+            Console.WriteLine(zerres);
+        }
+
+/*End Ratios of +ve,-ve ad zero value in an array */
+
+/* Form a Stair case */
+
+static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            staircase(n);
+            Console.ReadKey();
+        }
+        static void staircase(int n)
+        {
+            int space = n - 1, symbol = 0;
+            for(int r=0;r < n; r++)
+            {
+                symbol = n - space;
+                for(int t =0; t< space; t++)
+                {
+                    Console.Write(" ");
+                }
+                for (int t = 0; t < symbol; t++)
+                {
+                    Console.Write("#");
+                }
+                Console.Write("\n");
+                space--; 
+            }
+
+        }
+
+/* End Form a stair case */
+
+/* Find minimum and maximum sum from the array */
+
+static void Main(string[] args)
+        {
+            long[] arr = Array.ConvertAll(Console.ReadLine().Split(' '), arrTemp => Convert.ToInt64(arrTemp));
+            miniMaxSum(arr);
+            Console.ReadKey();
+        }
+        static void miniMaxSum(long[] arr)
+        {
+            long min = 0, max = 0;
+            for(int i = 0; i < arr.Length;i++)
+            {
+                long curElement = (long)arr.GetValue(i);
+                long arrSum = arr.Sum();
+                arrSum -= curElement;
+                if(arrSum > max)
+                {
+                    max = arrSum;
+                }
+                if (min == 0 || arrSum < min)
+                    min = arrSum;
+            }
+            Console.WriteLine(min + " " + max);
+        }
+
+/*End Find minimum and maximum sum from the array */
+
+/* Find the highest number and total occurrence in an array */
+static void Main(string[] args)
+        {
+            int arCount = Convert.ToInt32(Console.ReadLine());
+            int[] ar = Array.ConvertAll(Console.ReadLine().Split(' '), arTemp => Convert.ToInt32(arTemp));
+            int result = birthdayCakeCandles(ar);
+            Console.ReadKey();
+        }
+        static int birthdayCakeCandles(int[] ar)
+        {
+            int max = ar.Max();
+            int totcount = 0;
+            foreach(var t in ar)
+            {
+                if(t == max)
+                {
+                    totcount++;
+                }
+            }
+            return totcount;
+        }
+/*End - Find the highest number and total occurrence in an array */
+
+/* Convert 12Hour time format to 24Hour Format */
+
+ static void Main(string[] args)
+        {
+            string s = Console.ReadLine();
+            string result = timeConversion(s);
+            Console.WriteLine(result);
+            Console.ReadKey();
+        }
+        static string timeConversion(string s)
+        {
+            /*
+             * Write your code here.
+             */
+            return Convert.ToDateTime(s).ToString("HH:mm:ss");
+        }
+/* End Convert 12Hour time format to 24Hour Format */
