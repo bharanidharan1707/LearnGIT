@@ -24,7 +24,9 @@ ASP.NET, C#
 21. What is generics?
 22. What is iterators?
 23. What is enumeration?
-24. 
+24. What is IEnumerable and IEnumerator, Also their difference?
+25. What is Delegates?
+26. 
 
 MVC
 
