@@ -21,7 +21,10 @@ ASP.NET, C#
 17. What is difference between response redirect and server transfer in asp net with example?
 18. What are the advantages of ASP.NET?
 20. What are Authentication and Authorization?
-
+21. What is generics?
+22. What is iterators?
+23. What is enumeration?
+24. 
 
 MVC
 
