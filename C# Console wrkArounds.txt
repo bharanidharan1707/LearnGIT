@@ -163,3 +163,266 @@ static void Main(string[] args)
             return Convert.ToDateTime(s).ToString("HH:mm:ss");
         }
 /* End Convert 12Hour time format to 24Hour Format */
+ List<string> Month = new List<string>();
+            Month.Add("January");
+            Month.Add("February");
+            Month.Add("March");
+            Month.Add("April");
+            Month.Add("May");
+            Month.Add("June");
+            Month.Add("July");
+            Month.Add("August");
+            Month.Add("September");
+            Month.Add("October");
+            Month.Add("November");
+            Month.Add("December");
+
+            //create IEnumerable of string 
+            IEnumerable<string> iEnumerableOfString = (IEnumerable<string>)Month;
+            //If we want to retrieve all the items from this IEnumerable object, we can use a foreach loop. 
+            foreach (string AllMonths in iEnumerableOfString)
+            {
+                Console.WriteLine(AllMonths);
+            }
+
+            //Create IEnumerator of string.
+            IEnumerator<string> iEnumeratorOfString = Month.GetEnumerator();//to convert list into IEnumerator we can invoke the GetEnumerator method  
+            //To retrieve all the items from the above IEnumerator object, we cannot use foreach loop instead of that we need to invoke MoveNext() Boolean method.  
+            while (iEnumeratorOfString.MoveNext())
+            {
+                Console.WriteLine(iEnumeratorOfString.Current);
+            }
+/*Round grade (if diff betwn grade and its next multiple of 5 is less than 3) */
+ static void Main(string[] args)
+        {
+            
+            int gradesCount = Convert.ToInt32(Console.ReadLine().Trim());
+            List<int> grades = new List<int>();
+            for (int i = 0; i < gradesCount; i++)
+            {
+                int gradesItem = Convert.ToInt32(Console.ReadLine().Trim());
+                grades.Add(gradesItem);
+            }
+            List<int> result = gradingStudents(grades);
+            Console.ReadKey();
+        }
+
+        public static List<int> gradingStudents(List<int> grades)
+        {
+            List<int> ret = new List<int>();
+            foreach (var grade in grades)
+            {
+                if(grade >= 38 && ((((grade / 5 + 1) * 5) - grade) < 3))
+                {
+                    ret.Add(((grade / 5 + 1) * 5));
+                }
+            }
+            return ret;
+        }
+/*End */
+
+/*Count apple and orange falls within in a range*/
+ static void Main(string[] args)
+        {
+
+            string[] st = Console.ReadLine().Split(' ');
+            int s = Convert.ToInt32(st[0]);
+            int t = Convert.ToInt32(st[1]);
+            string[] ab = Console.ReadLine().Split(' ');
+            int a = Convert.ToInt32(ab[0]);
+            int b = Convert.ToInt32(ab[1]);
+            string[] mn = Console.ReadLine().Split(' ');
+            int m = Convert.ToInt32(mn[0]);
+            int n = Convert.ToInt32(mn[1]);
+            int[] apples = Array.ConvertAll(Console.ReadLine().Split(' '), applesTemp => Convert.ToInt32(applesTemp));
+            int[] oranges = Array.ConvertAll(Console.ReadLine().Split(' '), orangesTemp => Convert.ToInt32(orangesTemp));
+            countApplesAndOranges(s, t, a, b, apples, oranges);
+            Console.ReadKey();
+        }
+
+        static void countApplesAndOranges(int s, int t, int a, int b, int[] apples, int[] oranges)
+        {
+            int appCount = 0, orangeCount = 0;
+           for(var i=0;i<apples.Length;i++)
+            {
+                apples[i] += a;
+                if(apples[i] >= s && apples[i] <= t)
+                {
+                    appCount++;
+                }
+            }
+            for (var ii = 0; ii < oranges.Length; ii++)
+            {
+                oranges[ii] += b;
+                if (oranges[ii] >= s && oranges[ii] <= t)
+                {
+                    orangeCount++;
+                }
+            }
+
+            Console.WriteLine(appCount);
+            Console.WriteLine(orangeCount);
+        }
+
+/*two kangaroo meeting point */
+
+static void Main(string[] args)
+        {
+            string[] x1V1X2V2 = Console.ReadLine().Split(' ');
+            int x1 = Convert.ToInt32(x1V1X2V2[0]);
+            int v1 = Convert.ToInt32(x1V1X2V2[1]);
+            int x2 = Convert.ToInt32(x1V1X2V2[2]);
+            int v2 = Convert.ToInt32(x1V1X2V2[3]);
+            string result = kangaroo(x1, v1, x2, v2);
+            Console.WriteLine(result);
+            Console.ReadKey();
+        }
+
+        static string kangaroo(int x1, int v1, int x2, int v2)
+        {
+            int k1 = x1,k2=x2;
+
+            for(int i= 0; i < 10000;i++)
+            {
+                k1 += v1;
+                k2 += v2;
+
+                if(k1 == k2)
+                {
+                    return "YES";
+                }
+            }
+            return "NO";
+        }
+
+/*ENd */
+
+/* Factor elements between two sets*/
+
+ static void Main(string[] args)
+        {
+            string[] firstMultipleInput = Console.ReadLine().TrimEnd().Split(' ');
+            int n = Convert.ToInt32(firstMultipleInput[0]);
+            int m = Convert.ToInt32(firstMultipleInput[1]);
+            List<int> arr = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(arrTemp => Convert.ToInt32(arrTemp)).ToList();
+            List<int> brr = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(brrTemp => Convert.ToInt32(brrTemp)).ToList();
+            int total = getTotalX(arr, brr);
+            Console.WriteLine(total);
+            Console.ReadKey();
+        }
+
+        static int getTotalX(List<int> a, List<int> b)
+        {
+            int s = a[a.Count - 1];
+            int d = b[0];
+            List<int> betNum = new List<int>(), resNum = new List<int>();
+            for (int y = s; y<= d; y++)
+            {
+                if(y%s == 0)
+                {
+                    betNum.Add(y);
+                    resNum.Add(y);
+                }
+            }
+            
+            foreach (var bn in betNum)
+            {
+                foreach (var bit in a)
+                {
+                    if (bn % bit != 0)
+                    {
+                        resNum.Remove(bn);
+                    }
+                }
+                foreach (var bit in b)
+                {
+                    if (bit % bn != 0)
+                    {
+                        resNum.Remove(bn);
+                    }
+                }
+            }
+
+            return resNum.Count;
+        }
+
+
+
+  static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] scores = Array.ConvertAll(Console.ReadLine().Split(' '), scoresTemp => Convert.ToInt32(scoresTemp));
+            int[] result = breakingRecords(scores);
+            Console.WriteLine(result);
+            Console.ReadKey();
+        }
+
+        static int[] breakingRecords(int[] scores)
+        {
+            int minCount = 0, maxCount = 0, HighestScore = 0, lowestscore = 0;
+            for(int it=0;it<scores.Length;it++)
+            {
+                if(it == 0)
+                {
+                    HighestScore = scores[it];
+                    lowestscore = scores[it];
+                }
+                
+                if (scores[it] < lowestscore)
+                {
+                    lowestscore = scores[it];
+                    minCount++;
+                }
+                if (scores[it] > HighestScore)
+                {
+                    HighestScore = scores[it];
+                    maxCount++;
+                }
+            }
+            return new int[]{maxCount,minCount };
+        }
+
+
+ static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine().Trim());
+            List<int> s = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(sTemp => Convert.ToInt32(sTemp)).ToList();
+
+            string[] dm = Console.ReadLine().TrimEnd().Split(' ');
+
+            int d = Convert.ToInt32(dm[0]);
+
+            int m = Convert.ToInt32(dm[1]);
+
+            int result = birthday(s, d, m);
+
+            Console.WriteLine(result);
+            Console.ReadKey();
+        }
+
+        static int birthday(List<int> s, int d, int m)
+        {
+
+            int posscount = 0, sqtotal = 0;
+            int[] g = new int[] { }.;
+            for (int nm = 0; nm < s.Count; nm++)
+            {
+                sqtotal += s[nm];
+                int nn = m - 1;
+                for(int u = nn; u > 0; u--)
+                {
+                    if ((nm + u) < s.Count)
+                    {
+                        sqtotal += s[nm + u];
+                    }
+                    
+                }
+                if (sqtotal == d)
+                {
+                    posscount++;
+                }
+                sqtotal = 0;
+            }
+            return posscount;
+        }
+
