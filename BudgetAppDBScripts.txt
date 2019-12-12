@@ -1,0 +1,31 @@
+shareholders
+
+create table shareholders (id int IDENTITY(1,1) primary key,
+name varchar(100) not null)
+
+expensedet
+
+create table expensedet(
+exp_id int IDENTITY(1,1) primary key,
+exp_Catg varchar(100) not null,
+exp_for varchar(MAX) not null,
+exp_amount decimal(18,2) not null,
+exp_sharedby int foreign key references shareholders(id))
+
+creds
+
+create table creds (usrid int foreign key references shareholders(id),
+usrname varchar(100) not null,
+passwd nvarchar(15) not null)
+
+
+
+
+
+
+
+
+
+
+
+
