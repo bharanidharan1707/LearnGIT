@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB_PrepsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_Preps.dbo.creds' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="creds">
+          <Key>
+            <PropertyRef Name="usrname" />
+            <PropertyRef Name="passwd" />
+          </Key>
+          <Property Name="usrid" Type="int" />
+          <Property Name="usrname" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="passwd" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="expensedet">
+          <Key>
+            <PropertyRef Name="exp_id" />
+          </Key>
+          <Property Name="exp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="exp_Catg" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="exp_for" Type="varchar(max)" Nullable="false" />
+          <Property Name="exp_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="exp_spentby" Type="int" />
+        </EntityType>
+        <EntityType Name="shareholders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__creds__usrid__145C0A3F">
+          <End Role="shareholders" Type="Self.shareholders" Multiplicity="0..1" />
+          <End Role="creds" Type="Self.creds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shareholders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="creds">
+              <PropertyRef Name="usrid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__expensede__exp_s__1273C1CD">
+          <End Role="shareholders" Type="Self.shareholders" Multiplicity="0..1" />
+          <End Role="expensedet" Type="Self.expensedet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shareholders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="expensedet">
+              <PropertyRef Name="exp_spentby" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_PrepsModelStoreContainer">
+          <EntitySet Name="expensedet" EntityType="Self.expensedet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shareholders" EntityType="Self.shareholders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="creds" EntityType="Self.creds" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [creds].[usrid] AS [usrid], 
+    [creds].[usrname] AS [usrname], 
+    [creds].[passwd] AS [passwd]
+    FROM [dbo].[creds] AS [creds]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__creds__usrid__145C0A3F" Association="Self.FK__creds__usrid__145C0A3F">
+            <End Role="shareholders" EntitySet="shareholders" />
+            <End Role="creds" EntitySet="creds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__expensede__exp_s__1273C1CD" Association="Self.FK__expensede__exp_s__1273C1CD">
+            <End Role="shareholders" EntitySet="shareholders" />
+            <End Role="expensedet" EntitySet="expensedet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_PrepsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="expensedet">
+          <Key>
+            <PropertyRef Name="exp_id" />
+          </Key>
+          <Property Name="exp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="exp_Catg" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="exp_for" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="exp_amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="shareholder" Relationship="Self.FK__expensede__exp_s__1273C1CD" FromRole="expensedet" ToRole="shareholders" />
+          <Property Name="exp_spentby" Type="Int32" />
+          <NavigationProperty Name="shareholder1" Relationship="DB_PrepsModel.FK__expensede__exp_s__1273C1CD1" FromRole="expensedet" ToRole="shareholder" />
+        </EntityType>
+        <EntityType Name="shareholder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="expensedets" Relationship="Self.FK__expensede__exp_s__1273C1CD" FromRole="shareholders" ToRole="expensedet" />
+          <NavigationProperty Name="creds" Relationship="Self.FK__creds__usrid__145C0A3F" FromRole="shareholders" ToRole="creds" />
+          <NavigationProperty Name="expensedets1" Relationship="DB_PrepsModel.FK__expensede__exp_s__1273C1CD1" FromRole="shareholder" ToRole="expensedet" />
+        </EntityType>
+        <EntityType Name="cred">
+          <Key>
+            <PropertyRef Name="usrname" />
+            <PropertyRef Name="passwd" />
+          </Key>
+          <Property Name="usrid" Type="Int32" />
+          <Property Name="usrname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="passwd" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="shareholder" Relationship="Self.FK__creds__usrid__145C0A3F" FromRole="creds" ToRole="shareholders" />
+        </EntityType>
+        <Association Name="FK__expensede__exp_s__1273C1CD">
+          <End Role="shareholders" Type="Self.shareholder" Multiplicity="0..1" />
+          <End Role="expensedet" Type="Self.expensedet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shareholders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="expensedet">
+              <PropertyRef Name="exp_sharedby" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__creds__usrid__145C0A3F">
+          <End Role="shareholders" Type="Self.shareholder" Multiplicity="0..1" />
+          <End Role="creds" Type="Self.cred" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shareholders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="creds">
+              <PropertyRef Name="usrid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_PrepsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="expensedets" EntityType="Self.expensedet" />
+          <EntitySet Name="shareholders" EntityType="Self.shareholder" />
+          <EntitySet Name="creds" EntityType="Self.cred" />
+          <AssociationSet Name="FK__expensede__exp_s__1273C1CD" Association="Self.FK__expensede__exp_s__1273C1CD">
+            <End Role="shareholders" EntitySet="shareholders" />
+            <End Role="expensedet" EntitySet="expensedets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__creds__usrid__145C0A3F" Association="Self.FK__creds__usrid__145C0A3F">
+            <End Role="shareholders" EntitySet="shareholders" />
+            <End Role="creds" EntitySet="creds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__expensede__exp_s__1273C1CD1" Association="DB_PrepsModel.FK__expensede__exp_s__1273C1CD1">
+            <End Role="shareholder" EntitySet="shareholders" />
+            <End Role="expensedet" EntitySet="expensedets" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK__expensede__exp_s__1273C1CD1">
+          <End Type="DB_PrepsModel.shareholder" Role="shareholder" Multiplicity="0..1" />
+          <End Type="DB_PrepsModel.expensedet" Role="expensedet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shareholder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="expensedet">
+              <PropertyRef Name="exp_spentby" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_PrepsModelStoreContainer" CdmEntityContainer="DB_PrepsEntities">
+          <EntitySetMapping Name="expensedets">
+            <EntityTypeMapping TypeName="DB_PrepsModel.expensedet">
+              <MappingFragment StoreEntitySet="expensedet">
+                <ScalarProperty Name="exp_spentby" ColumnName="exp_spentby" />
+                <ScalarProperty Name="exp_id" ColumnName="exp_id" />
+                <ScalarProperty Name="exp_Catg" ColumnName="exp_Catg" />
+                <ScalarProperty Name="exp_for" ColumnName="exp_for" />
+                <ScalarProperty Name="exp_amount" ColumnName="exp_amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shareholders">
+            <EntityTypeMapping TypeName="DB_PrepsModel.shareholder">
+              <MappingFragment StoreEntitySet="shareholders">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="creds">
+            <EntityTypeMapping TypeName="DB_PrepsModel.cred">
+              <MappingFragment StoreEntitySet="creds">
+                <ScalarProperty Name="usrid" ColumnName="usrid" />
+                <ScalarProperty Name="usrname" ColumnName="usrname" />
+                <ScalarProperty Name="passwd" ColumnName="passwd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

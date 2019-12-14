@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_PrepsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="expensedet">
+    <Key>
+      <PropertyRef Name="exp_id" />
+    </Key>
+    <Property Name="exp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="exp_Catg" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="exp_for" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="exp_amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <NavigationProperty Name="shareholder" Relationship="Self.FK__expensede__exp_s__1273C1CD" FromRole="expensedet" ToRole="shareholders" />
+    <Property Name="exp_spentby" Type="Int32" />
+    <NavigationProperty Name="shareholder1" Relationship="DB_PrepsModel.FK__expensede__exp_s__1273C1CD1" FromRole="expensedet" ToRole="shareholder" />
+  </EntityType>
+  <EntityType Name="shareholder">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="expensedets" Relationship="Self.FK__expensede__exp_s__1273C1CD" FromRole="shareholders" ToRole="expensedet" />
+    <NavigationProperty Name="creds" Relationship="Self.FK__creds__usrid__145C0A3F" FromRole="shareholders" ToRole="creds" />
+    <NavigationProperty Name="expensedets1" Relationship="DB_PrepsModel.FK__expensede__exp_s__1273C1CD1" FromRole="shareholder" ToRole="expensedet" />
+  </EntityType>
+  <EntityType Name="cred">
+    <Key>
+      <PropertyRef Name="usrname" />
+      <PropertyRef Name="passwd" />
+    </Key>
+    <Property Name="usrid" Type="Int32" />
+    <Property Name="usrname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="passwd" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="shareholder" Relationship="Self.FK__creds__usrid__145C0A3F" FromRole="creds" ToRole="shareholders" />
+  </EntityType>
+  <Association Name="FK__expensede__exp_s__1273C1CD">
+    <End Role="shareholders" Type="Self.shareholder" Multiplicity="0..1" />
+    <End Role="expensedet" Type="Self.expensedet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="shareholders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="expensedet">
+        <PropertyRef Name="exp_sharedby" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__creds__usrid__145C0A3F">
+    <End Role="shareholders" Type="Self.shareholder" Multiplicity="0..1" />
+    <End Role="creds" Type="Self.cred" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="shareholders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="creds">
+        <PropertyRef Name="usrid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_PrepsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="expensedets" EntityType="Self.expensedet" />
+    <EntitySet Name="shareholders" EntityType="Self.shareholder" />
+    <EntitySet Name="creds" EntityType="Self.cred" />
+    <AssociationSet Name="FK__expensede__exp_s__1273C1CD" Association="Self.FK__expensede__exp_s__1273C1CD">
+      <End Role="shareholders" EntitySet="shareholders" />
+      <End Role="expensedet" EntitySet="expensedets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__creds__usrid__145C0A3F" Association="Self.FK__creds__usrid__145C0A3F">
+      <End Role="shareholders" EntitySet="shareholders" />
+      <End Role="creds" EntitySet="creds" />
+    </AssociationSet>
+    <AssociationSet Name="FK__expensede__exp_s__1273C1CD1" Association="DB_PrepsModel.FK__expensede__exp_s__1273C1CD1">
+      <End Role="shareholder" EntitySet="shareholders" />
+      <End Role="expensedet" EntitySet="expensedets" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK__expensede__exp_s__1273C1CD1">
+    <End Type="DB_PrepsModel.shareholder" Role="shareholder" Multiplicity="0..1" />
+    <End Type="DB_PrepsModel.expensedet" Role="expensedet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="shareholder">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="expensedet">
+        <PropertyRef Name="exp_spentby" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

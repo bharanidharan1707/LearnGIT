@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_PrepsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_Preps.dbo.creds' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="creds">
+    <Key>
+      <PropertyRef Name="usrname" />
+      <PropertyRef Name="passwd" />
+    </Key>
+    <Property Name="usrid" Type="int" />
+    <Property Name="usrname" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="passwd" Type="nvarchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="expensedet">
+    <Key>
+      <PropertyRef Name="exp_id" />
+    </Key>
+    <Property Name="exp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="exp_Catg" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="exp_for" Type="varchar(max)" Nullable="false" />
+    <Property Name="exp_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="exp_spentby" Type="int" />
+  </EntityType>
+  <EntityType Name="shareholders">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__creds__usrid__145C0A3F">
+    <End Role="shareholders" Type="Self.shareholders" Multiplicity="0..1" />
+    <End Role="creds" Type="Self.creds" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="shareholders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="creds">
+        <PropertyRef Name="usrid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__expensede__exp_s__1273C1CD">
+    <End Role="shareholders" Type="Self.shareholders" Multiplicity="0..1" />
+    <End Role="expensedet" Type="Self.expensedet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="shareholders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="expensedet">
+        <PropertyRef Name="exp_spentby" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_PrepsModelStoreContainer">
+    <EntitySet Name="expensedet" EntityType="Self.expensedet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="shareholders" EntityType="Self.shareholders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="creds" EntityType="Self.creds" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [creds].[usrid] AS [usrid], 
+    [creds].[usrname] AS [usrname], 
+    [creds].[passwd] AS [passwd]
+    FROM [dbo].[creds] AS [creds]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__creds__usrid__145C0A3F" Association="Self.FK__creds__usrid__145C0A3F">
+      <End Role="shareholders" EntitySet="shareholders" />
+      <End Role="creds" EntitySet="creds" />
+    </AssociationSet>
+    <AssociationSet Name="FK__expensede__exp_s__1273C1CD" Association="Self.FK__expensede__exp_s__1273C1CD">
+      <End Role="shareholders" EntitySet="shareholders" />
+      <End Role="expensedet" EntitySet="expensedet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
