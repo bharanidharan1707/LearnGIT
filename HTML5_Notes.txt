@@ -1,0 +1,76 @@
+=>DOCTYPE - Document Type Definition tells browsers and validators what version of HTML the page is written in.
+Ex: HTML 4 - <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" ..... > 
+
+=>Charset - character encoding instructs browsers and validators what set of characters to use when rendering web page.
+EX: HTML 4 - <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8"/>
+
+If a character set is declared neither in the document nor in the response headers, the
+browser might choose one for you, and it may be the wrong one for your site’s needs.
+
+=>lang - Browsers, screen readers, and other user agents use the lang attribute to determine the
+language in which the content should be interpreted.
+
+=>Document Structure
+
+header
+Is used to contain the headline(s) for a page and/or section. It can also contain
+supplemental information such as logos and navigational aids.
+
+footer
+Contains information about a page and/or section, such as who wrote it, links to
+related information, and copyright statements.
+
+nav
+Contains the major navigation links for a page and, while not a requirement, is
+often contained by header.
+
+aside
+Contains information that is related to the surrounding content but also exists
+independently, such as a sidebar or pull-quotes.
+
+section
+Is the most generic of the new structural elements, containing content that can be
+grouped thematically or is related.
+
+article
+Is used for self-contained content that could be consumed independently of the
+page as a whole, such as a blog entry.
+
+
+=> Emphasizing Text
+Contain the text to be emphasized with the em element.
+New: <p> This an <em> example </em> </p>
+Old: <p> This an <i> example </i> </p>
+
+=> Bold text
+Contain the text with strong element.
+New: <p> This an <strong> example </strong> </p>
+Old: <p> This an <b> example </b> </p>
+
+=> Highlighting Text
+Highlight the search item in a list of search results.
+<p> Found search value here <mark> Value retrieved </mark> </p>
+
+=>Acronyms and abbreviation
+Contain the abbreviation or acronym with abbr
+<abbr title="Internet Information Service">IIS</abbr>
+
+=> Adding links to block level content
+Contain both the logo image and the heading with the a element:
+<a href="http://html5funprofit.com">
+<h1>HTML5, for Fun &amp; Profit</h1>
+<img src="logo.png" alt="HTML5 for Fun and Profit" />
+</a>
+
+old:
+<h1><a href="http://html5funprofit.com">HTML5, for Fun &amp; Profit</a></h1>
+<a href="http://html5funprofit.com"><img src="logo.png" alt="HTML5 for Fun and
+Profit" /></a>
+ 
+
+
+
+
+
+
+ 
