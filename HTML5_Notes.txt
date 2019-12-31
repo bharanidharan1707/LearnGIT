@@ -189,6 +189,303 @@ To present a user with a form to provide contact information
 <p><button type="submit">Submit</button></p>
 </form>
 
+=> Date and Time fields
+
+<form>
+<fieldset>
+<legend>Appointment Request</legend>
+<p><label>Date Time <input type="datetime" name="datetime"></label></p>
+<p><label>Date <input type="date" name="date"></label></p>
+<p><label>Time <input type="time" name="time"></label></p>
+</fieldset>
+<p><button type="submit">Submit</button></p>
+</form>
+
+=> Number input
+
+<form>
+<p><label>Quantity <input type="number" name="quantity" min="2" max="20" step="2"> </label></p>
+<p><button type="submit">Submit</button></p>
+</form>
+
+=> Range input (for ex: volume control)
+
+<form>
+<p><label>Volume <input type="range" id="volcontrol" name="volume" min="0" max="10" step=".5" value="5"></label></p>
+</form>
+
+=> Color input
+
+<form>
+<p><label>Background color <input type="color" id="bgc" name="bg"></label></p>
+<p><label>Foreground color <input type="color" id="fgc" name="fg"></label></p>
+<p><button type="submit">Submit</button></p>
+</form>
+
+=> Editable Drop Down 
+
+The datalist element is used to define a list of suggested values for other input
+controls—it is not a form input or control itself.
+
+<form>
+<p><label for="donation">Donation amount</label>
+<datalist id="donations">
+<select name="donation">
+<option></option>
+<option value="10.00">10.00</option>
+<option value="25.00">25.00</option>
+<option value="50.00">50.00</option>
+<option>Other</option>
+</select>
+If other, please specify:
+</datalist>
+<input type="text" id="donation" name="donation" list="donations"></p>
+<p><button type="submit">Submit</button></p>
+</form>
+
+=> Require form field validation
+
+<form>
+<fieldset>
+<legend>Login</legend>
+<p><label>Username <input type="text" name="username" required></label></p>
+<p><label>Password <input type="password" name="pwd" required></label></p>
+</fieldset>
+<p><button type="submit">Submit</button></p>
+</form>
+
+=> Auto focus an element
+
+<form>
+<p><label>Search <input type="search" name="query" autofocus></label></p>
+<p><button type="submit">Submit</button></p>
+</form>
+
+=> Displaying placeholder text
+
+<form>
+<fieldset>
+<legend>Contact Information</legend>
+<p><label>E-mail address <input type="email" name="email"
+placeholder="user@domain.com"></label></p>
+<p><label>Web site <input type="url" name="website"
+placeholder="http://www.domain.com/"></label></p>
+<p><label>Telephone number <input type="tel" name="phone"
+placeholder="123-123-1234"></label></p>
+</fieldset>
+<p><button type="submit">Submit</button></p>
+</form>
+
+=> Disabling auto complete
+<form>
+<fieldset>
+<legend>Login</legend>
+<p><label>Username <input type="text" name="username"></label></p>
+<p><label>Password <input type="password" name="pwd"
+autocomplete="off"></label></p>
+</fieldset>
+<p><button type="submit">Submit</button></p>
+</form>
+
+=> Restricting value 
+
+Restrict the value of an input field according to a set of rules you specify
+
+<form>
+<p><label>Telephone number <input type="tel" name="phone"
+pattern="[2-9][0-9]{2}-[0-9]{3}-[0-9]{4}"
+title="North American format: XXX-XXX-XXXX"></label></p>
+<p><button type="submit">Submit</button></p>
+</form>
+
+=> Audio Control
+
+<audio src="C:\Users\Public\Music\Sample Music\Kalimba.mp3" controls>
+Download <a href="audio.ogg">episode 42 of Learning to Love HTML5</a>
+</audio>
+
+===> Integrating multiple audio
+<audio controls>
+<source src="audio.ogg">
+<source src="audio.mp3">
+Download <a href="audio.ogg">episode 42 of Learning to Love HTML5</a>
+</audio>
+
+Format supported:
+
+.aac
+Lossy compression scheme developed as an improvement over MP3, with similar
+bit rates but better sound quality
+.mp3
+Patented yet popular format that uses lossy compression to achieve file sizes onetenth
+of noncompressed
+.ogg
+Open source alternative to .mp3 that also uses a lossy compression format
+.wav
+Proprietary format for audio that does not utilize any compression
+.webm
+Google’s open, royalty-free media format, which relies on the Vorbis audio
+codec for compression
+
+
+===> Preloading audio
+
+<audio controls preload>
+
+preload="auto"
+Is the same as a Boolean preload, and suggests that the browser should begin
+downloading the file but leaves the ultimate action up to the browser. So, if it is a
+mobile situation or a slow connection, the browser can decide not to preload in
+order to save bandwidth.
+
+preload="metadata"
+Hints that the browser shouldn’t buffer the audio itself until the user activates the
+controls, but that metadata like duration and tracks should be preloaded.
+
+preload="none"
+Suggests that the audio shouldn’t be downloaded until the user activates the
+controls.
+
+===> Manipulating audio stream
+
+autoplay
+Tells the browser to start playing the audio as soon as the page loads.
+
+loop
+Another self-descriptive attribute, loop tells the browser to loop the audio when
+playing forward.
+
+Fortunately,audio and video have attributes, events, and methods you can manipulate with
+JavaScript to create custom controls, including:
+
+canplaytype(type)
+Returns a string indicating whether the browser can play a particular type of media
+
+currentTime
+Indicates the current playback position, denoted in seconds
+
+duration
+Gives the length of the audio file in seconds
+
+play();
+Starts playback at the current position
+
+pause();
+Pauses playback if the audio is actively playing
+
+<audio>
+<source src="audio.ogg">
+</audio>
+<button title="Play at 30 seconds" onclick="playAt(30);">30 seconds</button>
+<script>
+function playAt(seconds){
+var audio = document.getElementsByTagName("audio")[0];
+audio.currentTime = seconds;
+audio.play();
+}
+</script>
+
+There is no stop method. stop functionality can be mimicked by using the pause(); method to return to the beginning
+of the audio file via currentTime:
+
+<audio>
+<source src="audio.ogg">
+<source src="audio.mp3">
+</audio>
+<button title="Play at 30 seconds" onclick="playAt(30);">30 seconds</button>
+<button title="Stop Audio" onclick="stopAudio();">Stop Audio</button>
+<script>
+function playAt(seconds){
+var audio = document.getElementsByTagName("audio")[0];
+audio.currentTime = seconds;
+audio.play();
+}
+function stopAudio(){
+var audio = document.getElementsByTagName("audio")[0];
+audio.currentTime = 0;
+audio.pause();
+}
+</script>
+
+=> Video
+
+<video src="C:\Users\Public\Videos\Sample Videos\Wildlife.wmv" controls></video>
+
+Format supported:
+
+.aac
+Lossy compression scheme developed as an improvement over MP3, with similar
+bit rates but better sound quality
+.mp3
+Patented yet popular format that uses lossy compression to achieve file sizes onetenth
+of noncompressed
+.ogg
+Open source alternative to .mp3 that also uses a lossy compression format
+.wav
+Proprietary format for audio that does not utilize any compression
+.webm
+Google’s open, royalty-free media format, which relies on the Vorbis audio
+codec for compression
+
+
+preload="auto"
+
+preload="metadata"
+
+preload="none"
+
+
+===> Setting Video Dimensions
+
+<video controls width="640" height="360">
+<source src="video.mp4" type="video/mp4" />
+<source src="video.ogv" type="video/ogg" />
+Your device does not support HTML5 video.
+</video>
+
+=> figure and figcaption
+
+<figure>
+<img src="C:\Users\Public\Pictures\Sample Pictures\Desert.jpg">
+<figcaption>
+Opening ceremony for the new library building at the state university.
+</figcaption>
+</figure>
+
+=> enabling a fieldset dynamically
+
+<form>
+<fieldset>
+<legend>Store Credit Card</legend>
+<p><label>Name displayed on your card:<input name="fullName"
+required></label></p>
+<fieldset name="accountNum" disabled>
+<legend>
+<label>
+<input type="radio" name="accountType"
+onchange="form.accountNum.disabled = !checked;
+form.accountLetters.disabled=checked">My account is a
+12-digit number
+</label>
+</legend>
+<p><label>Store card number: <input name="cardNum"
+required></label></p>
+</fieldset>
+<fieldset name="accountLetters" disabled>
+<legend>
+<label>
+<input type="radio" name="accountType"
+onchange="form.accountLetters.disabled = !checked;
+form.accountNum.disabled=checked">My account includes
+letters and numbers
+</label>
+</legend>
+<p><label>Store card code: <input name="cardLetters"></label></p>
+</fieldset>
+</fieldset>
+</form>
+
+
 
 
 
