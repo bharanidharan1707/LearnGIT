@@ -1,28 +1,23 @@
-<!DOCTYPE HTML>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Javascript WorkAround</title>
-</head>
-<body>
-<p id="prg"></p>
-<script type="text/javascript">
-let globalVar = "This is a global variable";
-function RandomCode()
-{
-/*Variable declaration*/
 
-let bar = "Bar";
-document.getElementById("prg").textContent += bar + "\n";
-{
-var foo = "Foo";
-let baz = "Bazz";
-document.getElementById("prg").textContent += baz + "\n";
-}
-document.getElementById("prg").textContent += foo + "\n"; 
-document.getElementById("prg").textContent += baz + "\n"; 
-}
-RandomCode();
-</script>
-</body>
-</html>
+WITH 
+cte_totcount AS
+(
+   select hacker_id, challenge_id, sum(score) as totscore from
+     submissions xx
+    where score <> 0
+     group by hacker_id,challenge_id,score
+     having score = (select MAX(score) from submissions where hacker_id=xx.hacker_id and
+                    challenge_id = xx.challenge_id)
+ ),
+ cte_final AS 
+ (
+     select t1.hacker_id,name, sum(totscore) as totscore from
+     cte_totcount t1 join hackers t2 on t1.hacker_id = t2.hacker_id
+     group by t1.hacker_id,name
+ )
+ select * from cte_final
+ order by totscore desc,  hacker_id asc
+ 
+ 
+
+
