@@ -1,0 +1,10 @@
+Difference between questions:
+
+1. list vs Array
+2. Throw Exception and Throw clause
+3. sealed, static and abstract 
+4. const and readonly
+
+
+Thread - Delegates, Async, Await
+

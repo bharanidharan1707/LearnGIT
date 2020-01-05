@@ -4,12 +4,35 @@
 <meta charset="utf-8"/>
 </header>
 <body>
-<a href="http://html5funprofit.com">
-<h1>HTML5, for Fun &amp; Profit</h1>
-<img src="logo.png" alt="HTML5 for Fun and Profit" />
-</a>
-<p>Copyright &copy; 2011 <a href="http://html5funprofit.com">HTM5, for Fun
-&amp; Profit</a>. All rights reserved.</p>
-</footer>
+<form>
+<fieldset>
+<legend>Store Credit Card</legend>
+<p><label>Name displayed on your card:<input name="fullName"
+required></label></p>
+<fieldset name="accountNum" disabled>
+<legend>
+<label>
+<input type="radio" name="accountType"
+onchange="form.accountNum.disabled = !checked;
+form.accountLetters.disabled=checked">My account is a
+12-digit number
+</label>
+</legend>
+<p><label>Store card number: <input name="cardNum"
+required></label></p>
+</fieldset>
+<fieldset name="accountLetters" disabled>
+<legend>
+<label>
+<input type="radio" name="accountType"
+onchange="form.accountLetters.disabled = !checked;
+form.accountNum.disabled=checked">My account includes
+letters and numbers
+</label>
+</legend>
+<p><label>Store card code: <input name="cardLetters"></label></p>
+</fieldset>
+</fieldset>
+</form>
 </body>
 </html>
