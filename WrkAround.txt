@@ -21,3 +21,65 @@ cte_totcount AS
  
 
 
+
+WITH 
+cte_totcount AS
+(
+   select hacker_id, count(challenge_id) as tot from
+     challenges xx
+    group by hacker_id
+ ),
+ cte_maxlist AS 
+ (
+     select hacker_id,tot from
+     cte_totcount t1
+     group by hacker_id,tot
+     having tot >= (select max(tot) from cte_totcount where hacker_id = t1.hacker_id)
+ ),
+  cte_dup AS 
+ (
+     select hacker_id,tot from cte_totcount t1 
+     where  t1.tot not in (select tot from cte_dup)
+     select  tot
+     from cte_totcount t1
+     group by tot
+     having count(tot) > 1
+ )
+ ,
+ cte_final AS
+ (
+     select hacker_id,tot from cte_maxlist  
+     union
+     select hacker_id,tot from cte_totcount t1 where  t1.tot not in (select tot from cte_dup)
+ )
+ select * from cte_final order by tot desc,  hacker_id asc
+ 
+
+
+
+DECLARE @var int               -- Declare 
+SELECT @var = 5                -- Initialization 
+WHILE @var > 0                 -- condition 
+BEGIN                          -- Begin 
+PRINT replicate('* ', @var)    -- Print 
+SET @var = @var - 1            -- decrement 
+END   
+
+
+WITH cte_numbers(n, weekday) 
+AS (
+    SELECT 
+        0, 
+        DATENAME(DW, 0)
+    UNION ALL
+    SELECT    
+        n + 1, 
+        DATENAME(DW, n + 1)
+    FROM    
+        cte_numbers
+    WHERE n < 6
+)
+SELECT 
+    weekday
+FROM 
+    cte_numbers;
