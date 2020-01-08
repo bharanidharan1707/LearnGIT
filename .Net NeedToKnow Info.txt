@@ -8,3 +8,6 @@ Difference between questions:
 
 Thread - Delegates, Async, Await
 
+Entity Framework - Approaches, Entity Sets
+
+
